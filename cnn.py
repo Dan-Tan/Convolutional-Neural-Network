@@ -10,10 +10,10 @@ Original file is located at
 import numpy as np
 import os
 import matplotlib.pyplot as plt
-from google.colab import drive
-drive.mount('/content/drive/')
+# from google.colab import drive
+# drive.mount('/content/drive/')
 import tensorflow as tf
-tf.test.gpu_device_name()
+# tf.test.gpu_device_name()
 
 class Convolutional_Layer():
 
@@ -324,13 +324,13 @@ class Convolutional_Neural_Network():
         W1_temp = np.zeros((self.fc.inputlayersize, W1_indn))
         W2_temp = np.zeros((self.fc.hiddenlayersize, W2_indn))
         
-        # for ind, e in enumerate(c11_dropout):
-        #     c11_tempkernel[ind, :] = self.c11.kernels[e, :]
-        #     self.c11.kernels[e, :] = 0 
+        for ind, e in enumerate(c11_dropout):
+            c11_tempkernel[ind, :] = self.c11.kernels[e, :]
+            self.c11.kernels[e, :] = 0 
                                                    
-        # for ind, e in enumerate(c12_dropout):
-        #     c12_tempkernel[ind, :] = self.c12.kernels[e, :]
-        #     self.c12.kernels[e, :] = 0
+        for ind, e in enumerate(c12_dropout):
+            c12_tempkernel[ind, :] = self.c12.kernels[e, :]
+            self.c12.kernels[e, :] = 0
                                                    
         for ind, e in enumerate(W1_dropout):
             W1_temp[:, ind] = self.fc.W1[:, e]
@@ -346,11 +346,11 @@ class Convolutional_Neural_Network():
 
         c11_dropout, c12_dropout, W1_dropout, W2_dropout, c11_tempkernel, c12_tempkernel, W1_temp, W2_temp = cache
 
-        # for ind, e in enumerate(c11_dropout):
-        #     self.c11.kernels[e, :] = c11_tempkernel[ind, :]
+        for ind, e in enumerate(c11_dropout):
+            self.c11.kernels[e, :] = c11_tempkernel[ind, :]
 
-        # for ind, e in enumerate(c12_dropout):
-        #     self.c12.kernels[e, :] = c12_tempkernel[ind, :]
+        for ind, e in enumerate(c12_dropout):
+            self.c12.kernels[e, :] = c12_tempkernel[ind, :]
 
         for ind, e in enumerate(W1_dropout):
             self.fc.W1[:, e] = W1_temp[:, ind]
@@ -452,10 +452,10 @@ class Trainer():
                 cost += self.CNN.fc.cost_function(self.CNN.out, gtruth)
                 corr += a
 
-            np.save('/content/drive/My Drive/Colab Notebooks/Neural Network stuff/CNN better/{}'.format("kernelsc11"), CNN.c11.kernels)
-            np.save('/content/drive/My Drive/Colab Notebooks/Neural Network stuff/CNN better/{}'.format("kernelsc12"), CNN.c12.kernels)
-            np.save('/content/drive/My Drive/Colab Notebooks/Neural Network stuff/CNN better/{}'.format("weight1"), CNN.fc.W1)
-            np.save('/content/drive/My Drive/Colab Notebooks/Neural Network stuff/CNN better/{}'.format("weight2"), CNN.fc.W2)
+#             np.save('/content/drive/My Drive/Colab Notebooks/Neural Network stuff/CNN better/{}'.format("kernelsc11"), CNN.c11.kernels)
+#             np.save('/content/drive/My Drive/Colab Notebooks/Neural Network stuff/CNN better/{}'.format("kernelsc12"), CNN.c12.kernels)
+#             np.save('/content/drive/My Drive/Colab Notebooks/Neural Network stuff/CNN better/{}'.format("weight1"), CNN.fc.W1)
+#             np.save('/content/drive/My Drive/Colab Notebooks/Neural Network stuff/CNN better/{}'.format("weight2"), CNN.fc.W2)
 
             finish = self.callback_function(cost, corr, e)
 
