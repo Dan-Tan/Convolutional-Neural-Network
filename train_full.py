@@ -101,14 +101,18 @@ def generate_publication_plots(history, model, X_test, y_test):
     fm2 = conv2.forward(p1, training=False)
     act2 = relu2.forward(fm2, training=False)
 
-    # Layer 1 Feature Maps (16 subplots)
-    fig, axes = plt.subplots(4, 4, figsize=(9, 9), dpi=300)
-    fig.suptitle("Conv2D Layer 1 Feature Maps (16 Filters)", fontsize=14, fontweight="bold", y=0.95, color="#0f172a")
+    # Layer 1 Feature Maps
+    num_filters_l1 = act1.shape[1]
+    rows = 2 if num_filters_l1 <= 8 else 4
+    cols = 4
+    fig, axes = plt.subplots(rows, cols, figsize=(9, 2.5 * rows), dpi=300)
+    fig.suptitle(f"Conv2D Layer 1 Feature Maps ({num_filters_l1} Filters)", fontsize=14, fontweight="bold", y=0.98, color="#0f172a")
     for i, ax in enumerate(axes.flat):
-        im = ax.imshow(act1[0, i, :, :], cmap="viridis", interpolation="nearest")
-        ax.set_title(f"Filter {i+1}", fontsize=9, color="#334155", fontweight="medium")
+        if i < num_filters_l1:
+            ax.imshow(act1[0, i, :, :], cmap="viridis", interpolation="nearest")
+            ax.set_title(f"Filter {i+1}", fontsize=9, color="#334155", fontweight="medium")
         ax.axis("off")
-    plt.subplots_adjust(wspace=0.15, hspace=0.25)
+    plt.tight_layout()
     fm1_path = os.path.join("assets", "feature_maps_layer1.png")
     plt.savefig(fm1_path, dpi=300, bbox_inches="tight")
     plt.close()
