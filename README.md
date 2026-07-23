@@ -3,12 +3,12 @@
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
 [![NumPy](https://img.shields.io/badge/Library-NumPy-013243.svg?logo=numpy)](https://numpy.org/)
 [![Tests](https://img.shields.io/badge/Tests-Pytest-green.svg)](https://docs.pytest.org/)
-[![Legacy Code](https://img.shields.io/badge/Legacy_Code-High_School_Project-orange.svg)](legacy/README.md)
+[![Legacy Tag](https://img.shields.io/badge/Legacy_Tag-v0.1.0--legacy-orange.svg)](https://github.com/Dan-Tan/Convolutional-Neural-Network/tree/v0.1.0-legacy)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A 2D Convolutional Neural Network (CNN) framework implemented from first principles in NumPy, without relying on PyTorch or TensorFlow for model operations or automatic differentiation.
 
-This project was originally created upon finishing high school as an early programming project to learn Python and understand neural network mathematics. The raw initial draft is archived in [legacy/original_cnn.py](legacy/original_cnn.py). The repository contains both that legacy script and a modernized implementation with modular layer abstractions, type annotations, unit tests, and vectorized `im2col` acceleration.
+This project was originally created upon finishing high school as an early programming project to learn Python and understand neural network mathematics. The original unedited state is tagged as [`v0.1.0-legacy`](https://github.com/Dan-Tan/Convolutional-Neural-Network/tree/v0.1.0-legacy) (commit [`5cdbe1f`](https://github.com/Dan-Tan/Convolutional-Neural-Network/commit/5cdbe1fa7923f47897f59852014a45b88c0fcef8)) and preserved in [legacy/original_cnn.py](legacy/original_cnn.py). The repository contains both that original implementation and a modernized refactor with modular layer abstractions, type annotations, unit tests, and vectorized `im2col` acceleration.
 
 ---
 
