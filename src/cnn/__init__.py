@@ -8,6 +8,7 @@ from src.cnn.layers.flatten import Flatten
 from src.cnn.layers.activations import ReLU, LeakyReLU, SoftmaxCrossEntropyLoss
 from src.cnn.network import Sequential
 from src.cnn.utils import load_mnist
+from src.cnn.grad_check import eval_numerical_gradient, compute_relative_error
 
 __all__ = [
     "Layer",
@@ -20,4 +21,6 @@ __all__ = [
     "SoftmaxCrossEntropyLoss",
     "Sequential",
     "load_mnist",
+    "eval_numerical_gradient",
+    "compute_relative_error",
 ]

@@ -76,14 +76,14 @@ class Dense(Layer):
             dL_dout = np.expand_dims(dL_dout, axis=0)
 
         N = self.x.shape[0]
-        dL_dW = np.dot(self.x.T, dL_dout) / N
-        dL_db = np.sum(dL_dout, axis=0, keepdims=True) / N
+        self.dW = np.dot(self.x.T, dL_dout)
+        self.db = np.sum(dL_dout, axis=0, keepdims=True)
 
         dL_dx = np.dot(dL_dout, self.W.T)
 
         # Update velocities & parameters
-        self.v_W = self.momentum * self.v_W + (1.0 - self.momentum) * dL_dW
-        self.v_b = self.momentum * self.v_b + (1.0 - self.momentum) * dL_db
+        self.v_W = self.momentum * self.v_W + (1.0 - self.momentum) * (self.dW / N)
+        self.v_b = self.momentum * self.v_b + (1.0 - self.momentum) * (self.db / N)
 
         self.W -= self.learning_rate * self.v_W
         self.b -= self.learning_rate * self.v_b

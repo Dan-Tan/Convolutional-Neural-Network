@@ -107,16 +107,16 @@ class Conv2D(Layer):
         dL_dout_reshaped = dL_dout.transpose(1, 2, 3, 0).reshape(self.out_channels, -1)
 
         # Gradients wrt parameters
-        dL_dW = np.dot(dL_dout_reshaped, self.x_col.T)
-        dL_db = np.sum(dL_dout_reshaped, axis=1, keepdims=True)
+        self.dW = np.dot(dL_dout_reshaped, self.x_col.T)
+        self.db = np.sum(dL_dout_reshaped, axis=1, keepdims=True)
 
         # Gradient wrt input columns
         dL_dx_col = np.dot(self.W.T, dL_dout_reshaped)
         dL_dx = col2im_indices(dL_dx_col, self.x.shape, self.kh, self.kw, self.padding, self.stride)
 
         # Update momentum velocities & weights
-        self.v_W = self.momentum * self.v_W + (1.0 - self.momentum) * dL_dW
-        self.v_b = self.momentum * self.v_b + (1.0 - self.momentum) * dL_db
+        self.v_W = self.momentum * self.v_W + (1.0 - self.momentum) * self.dW
+        self.v_b = self.momentum * self.v_b + (1.0 - self.momentum) * self.db
 
         self.W -= self.learning_rate * self.v_W
         self.b -= self.learning_rate * self.v_b
