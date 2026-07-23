@@ -12,54 +12,6 @@ This project was originally created upon finishing high school as an early progr
 
 ---
 
-## Architecture Overview
-
-```
-Input Image (1, 28, 28)
-       |
-       v
- +-----------+     +-----------+     +-------------+
- |  Conv2D   | --> |   ReLU    | --> |  MaxPool2D  |  --> (8, 14, 14)
- | (8, 3x3)  |     | Activation|     |  (2x2, s=2) |
- +-----------+     +-----------+     +-------------+
-       |
-       v
- +-----------+     +-----------+     +-------------+
- |  Conv2D   | --> |   ReLU    | --> |  MaxPool2D  |  --> (16, 7, 7)
- | (16, 3x3) |     | Activation|     |  (2x2, s=2) |
- +-----------+     +-----------+     +-------------+
-       |
-       v
- +-----------+     +-----------+     +-------------+     +----------------------+
- |  Flatten  | --> |   Dense   | --> |    Dense    | --> | SoftmaxCrossEntropy  | --> Output (10)
- |   (784)   |     |   (64)    |     |    (10)     |     |      Loss            |
- +-----------+     +-----------+     +-------------+     +----------------------+
-```
-
----
-
-## Mathematical Foundations
-
-### 1. Vectorized Convolution via im2col
-Input patches are unrolled into columns to convert spatial 2D convolution into matrix multiplication:
-
-$$\mathbf{X}_{\text{col}} \in \mathbb{R}^{(C_{\text{in}} \cdot K_h \cdot K_w) \times (N \cdot H_{\text{out}} \cdot W_{\text{out}})}$$
-
-The forward pass is:
-
-$$\mathbf{Y}_{\text{flat}} = \mathbf{W} \cdot \mathbf{X}_{\text{col}} + \mathbf{b}$$
-
-Backpropagation gradients with respect to weights and input columns are derived via matrix transposes:
-
-$$\frac{\partial L}{\partial \mathbf{W}} = \left(\frac{\partial L}{\partial \mathbf{Y}}\right) \cdot \mathbf{X}_{\text{col}}^T, \quad \frac{\partial L}{\partial \mathbf{X}_{\text{col}}} = \mathbf{W}^T \cdot \left(\frac{\partial L}{\partial \mathbf{Y}}\right)$$
-
-### 2. Softmax + Cross-Entropy Fused Gradient
-For Softmax outputs $\hat{y}_k = \frac{e^{z_k}}{\sum_{j} e^{z_j}}$ and Cross-Entropy loss $L = -\sum_k y_k \log \hat{y}_k$, the gradient with respect to pre-activation logits is:
-
-$$\frac{\partial L}{\partial \mathbf{z}} = \hat{\mathbf{y}} - \mathbf{y}$$
-
----
-
 ## Visualizations
 
 ### Intermediate Feature Maps
