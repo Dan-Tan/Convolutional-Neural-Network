@@ -2,6 +2,15 @@
 """Extended Training & High-Quality Plot Generator for CNN from Scratch."""
 
 import os
+import multiprocessing
+
+# Automatically utilize all CPU cores for parallel NumPy matrix operations
+_num_cores = str(multiprocessing.cpu_count())
+os.environ["OMP_NUM_THREADS"] = _num_cores
+os.environ["MKL_NUM_THREADS"] = _num_cores
+os.environ["OPENBLAS_NUM_THREADS"] = _num_cores
+os.environ["NUMEXPR_NUM_THREADS"] = _num_cores
+
 import argparse
 import numpy as np
 import matplotlib.pyplot as plt
