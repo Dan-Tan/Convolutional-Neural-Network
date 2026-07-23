@@ -136,6 +136,7 @@ def main():
     print("==================================================")
     print(" CNN Extended Training & Plot Generator ")
     print("==================================================")
+    print(f"Hardware Threads: {multiprocessing.cpu_count()} (Multi-Threaded Parallel Execution)")
     print(f"Epochs: {args.epochs} | Batch Size: {args.batch_size} | Initial LR: {args.lr}")
     print(f"Training Samples: {args.num_train} | Test Samples: {args.num_test}")
     print("--------------------------------------------------")

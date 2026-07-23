@@ -35,6 +35,7 @@ def main():
     print("==================================================")
     print(" CNN from Scratch - Training Pipeline ")
     print("==================================================")
+    print(f"Hardware Threads: {multiprocessing.cpu_count()} (Multi-Threaded Parallel Execution)")
     print(f"Epochs: {args.epochs} | Batch Size: {args.batch_size} | LR: {args.lr}")
     print(f"Training Samples: {args.num_train} | Test Samples: {args.num_test}")
     print("--------------------------------------------------")
